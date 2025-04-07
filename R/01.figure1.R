@@ -250,7 +250,10 @@ text_ref
 # Look at meta-analysis benchmark
 
 # Code to get time and memory usage from slurm jobs
-meta_bench <- make_df("meta-analysis")
+meta_bench <- make_df("meta-analysis") |> mutate(method = "tidyGWAS")
+meta_bench_metal <- make_df("metal-meta") |> mutate(method = "metal")
+all <- bind_rows(meta_bench, meta_bench_metal)
+write_rds(all, "data/meta_benchmark.rds")
 
 
 # httpgd::hgd()
