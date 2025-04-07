@@ -1,0 +1,77 @@
+dataset_name	phenotype	pmid
+accident	Serious accident	34737426
+adenocarcinoma	Adenocarcinoma	31427789
+agefirstbirth	Age first birth	27798627
+agelastbirth	Age last birth	36320039
+alcoholabuse18	Alcohol abuse	30336701
+alcoholdep	Alcohol dependence	30482948
+anemia	Anemia	34594039
+atrialfib	Atrial Fibrillation	29892015
+cancerskin	Malignant neoplasms of skin	31427789
+childmal	Childhood maltreatment	32066696
+cholesterol	Cholesterol	33462484
+chronicpain	Multisite chronic pain	31194737
+chronotype	Chronotype	30696823
+coffee	Coffee consumption	34737426
+contrapill	Contraceptive pill	36320039
+copd	Chronic obstructive pulmonary disease	33106845
+coronaryartdis	Coronary artery disease	35915156
+covid	Severe covid 19	35922517
+crp	CRP levels	35459240
+deathofrelative	Death of relative	34737426
+diabloodpres	Diastolic blood pressure	30224653
+dietvariation	Variation in diet	31427789
+disability	Long illness or disability	31427789
+divorce	Separation/ divorce	34737426
+erectile	Erectile dysfunction	30583798
+estradiol	Estradiol	32042192
+executivefun	Executive function	36150907
+exercise	Exercise (self report)	36071172
+externalizing	Externalizing	34446935
+financialdiff	Financial difficulties	34737426
+fish	Fish consumption	34737426
+fluidintelligence	Fluid intelligence	34737426
+fruit	Fruit consumption	34737426
+gestationduration	Preterm birth	31477735
+hdl	High density lipoprotein	34887591
+health	Self-reported health	27864402
+healthhappy	Health satisfaction	31427789
+healthspan	Healthspan	30729179
+heartvaria	Heart rate variability	28613276
+herpes	Herpes simplex virus	33204752
+hivsuscep	HIV susceptibility	36034232
+hyperthyroidism	Hyperthyroidism	34594039
+hypothyroidism	Hypothyroidism	36093044
+il6	IL6 levels	33517400
+illnesses	Self-reported illnesses	31427789
+income	Household income	31844048
+infantmortal	Infant mortality rate birth region	35290122
+irbd	Irritable bowel disease	29626450
+ldl	Low density lipoprotein	34887591
+loneliness	Loneliness	29970889
+lupus	Systemic lupus erythematosus	26502338
+magnesium	Magnesium levels	33441150
+manager	Management demands	35286190
+menarche	Age at menarche	31427789
+menopause	Age at menopause	34349265
+metabolicsyn	Metabolic syndrome	31589552
+nightshifts	Job involves night shifts	31427789
+nonhdl	NA	NA
+numberchildren	Number of children	NA
+offspringbirthweight	Offspring birth weight	29309628
+ovulating	Years ovulating	36320039
+oxyuptake	Oxygen uptake	34753499
+parentlife	Parental lifespan	29227965
+parentlongevity	Parental longevity	27015805
+partner	Living with partner	34737426
+pelvicorganprol	Pelvic organ prolapse	35739095
+peripheralartdis	Peripheral artery disease	34601942
+physactivity	Physical activity	30531941
+pregnantermin	Pregnancy terminations	NA
+pulsepress	NA	NA
+rheuma	Rheumatoid arthritis	36333501
+riskbehavior	Risky behaviours	30643258
+sinusitis	Chronic sinusitis	34594039
+sleepduration	Sleep duration	30531941
+smokingmaternal	Maternal smoking	NA
+staphylococcus	Staphylococcus aureus	33662382

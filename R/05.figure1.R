@@ -5,17 +5,14 @@ library(lubridate)
 library(patchwork)
 
 
+
+merged <- read_tsv("data/row_removs.tsv")
   
-  
-  
-merged <- read_tsv("workflow/row_removs.tsv")
-known_err <- c("cancerpanc", "pulsepress", "systolpress", "scz2011", "mdd2013", "diabloodpres", "parkinson2019", "atrialfib")
 
 
 
 pdf <- 
  merged |> 
-  filter(!dataset_name %in% known_err) |> 
   janitor::clean_names() |> 
   mutate(across(everything(), \(x) replace_na(x, replace = 0))) |> 
   pivot_longer(-1) |> 
@@ -46,6 +43,11 @@ pdf <- pdf |>
     TRUE ~ name
   ))
 
+pdf |> 
+  filter(value > 0) |> 
+  count(name)
+  
+  
 
 
 
@@ -100,7 +102,7 @@ fig1
 ########## 
 ##  Now benchmarking and memory usage
 
-
+data <- read_rds("data/benchmark.rds")
 
 
 
@@ -131,7 +133,7 @@ time_fig <- data |>
         y = " ",
         color = " "
     ) +
-    theme(legend.position = c(0.75, 0.90)) +
+    theme(legend.position = c(0.75, 0.85)) +
     ggtitle("B")
 
 
@@ -160,9 +162,6 @@ mem_fig <- mem_fig +
     theme(axis.text.y = element_blank())
 
 
-final_fig <- fig1 / (time_fig + mem_fig)
-ggsave("figures/figure1.png", final_fig, dpi = 300, height = 12, width = 14)
-
 
 
 
@@ -186,21 +185,70 @@ data |>
 text_ref
 
 
-# Look at meta-analysis benchmark
+
+# Meta-analysis results ---------------------------------------------------
 
 
-# httpgd::hgd()
-meta_bench |> 
-    ggplot(aes(type, time, color = type)) +
-    geom_point() +
-    coord_flip() +
-    scale_y_time() +
-    theme_light()
+meta_bench <- 
+  read_rds("data/meta_benchmark.rds") |>
+  mutate(mem = as.numeric(mem)) |> 
+  mutate(method = if_else(method == "metal", "Metal", method))
 
-meta_bench |> 
-summarise(
-    mean_time = mean(seconds(time) / 60),
-    sd_time = sd(seconds(time) / 60),
-    iqr = IQR(seconds(time) / 60),
-    mean_mem = mean(mem),
-)
+
+time <- meta_bench |> 
+  ggplot(aes(time, method, color = method)) + 
+  geom_boxplot() +
+  geom_point(alpha = 0.7, aes(color = method)) +
+  scale_x_time() +
+  theme_light() +
+  theme(
+    axis.text=element_text(size=12),
+    axis.title=element_text(size=14)
+  ) +  
+  labs(
+    x = "Wall-clock time",
+    y = " ",
+    color = " "
+  ) +
+  theme(
+    legend.position = c(0.75, 0.85),
+    # tilt the x-axis labels
+    axis.text.x = element_text(angle = 15, hjust = 1),
+    ) +
+  ggtitle("D")
+
+
+mem <- 
+  meta_bench |> 
+  ggplot(aes(mem, method, color = method)) + 
+  geom_boxplot() +
+  theme_light() +
+  theme(
+    axis.text=element_text(size=12),
+    axis.title=element_text(size=14)
+  ) +  
+  labs(
+    x = "Memory Utilized (GB)",
+    y = " ",
+    color = " "
+  ) +
+  ggtitle("E")
+
+
+
+final_fig <- fig1 / (time_fig + mem_fig) / (time + mem)
+ggsave("figures/figure1.png", final_fig, dpi = 350, height = 16, width = 14)
+
+
+
+
+
+
+meta_bench |>
+  group_by(method) |> 
+  summarise(
+      mean_time = mean(seconds(time) / 60),
+      sd_time = sd(seconds(time) / 60),
+      iqr = IQR(seconds(time) / 60),
+      mean_mem = mean(mem),
+  )

@@ -10,7 +10,6 @@ alzheimers_disease2021	44971	0	0	0	0	0	0	NA
 amygdala	818	0	0	0	0	0	0	NA
 amyotrophic_lateral_sclerosis	684	1	2091	0	0	0	0	NA
 anorexia_nervosa2019	1062	0	0	0	0	0	0	NA
-anorexia_nervosa_PGC2	1101	0	0	0	0	0	0	NA
 antidep_nonremission	2475	0	0	0	0	0	0	NA
 antidep_perc_improv	2479	0	0	0	0	0	0	NA
 anx2016	2847	66034	0	0	0	0	0	NA
@@ -64,7 +63,6 @@ lymph	55981	0	0	0	0	0	0	NA
 mcv	55976	0	0	0	0	0	0	NA
 mdd2018	5467	832	1706	0	0	0	0	NA
 mdd2023	978	0	0	0	0	0	0	NA
-mdd2023_23nme	827	0	0	0	0	0	0	NA
 mdd2023_als	1168	0	0	0	0	0	0	NA
 mdd_ect	1752	0	1208340	0	0	0	0	NA
 mdd_ppd	7154	0	46848	0	0	0	0	NA
@@ -87,7 +85,6 @@ neuroticism	1665	0	0	0	0	108858	0	NA
 orbito_affective	1685	0	0	0	0	0	0	NA
 orbito_affective_to_orbito_affective	1685	0	0	0	0	0	0	NA
 pallidum	818	0	0	0	0	0	0	NA
-parkinson2019	1042589	0	0	0	2111841	0	838	NA
 parkinson2019_no23nme	3822	0	0	0	0	0	0	NA
 plt	55976	0	0	0	0	0	0	NA
 posterior_multimodal	1685	0	0	0	0	0	0	NA
@@ -118,7 +115,6 @@ agelastbirth	1821	0	0	0	NA	0	NA	0
 alcoholabuse18	4618	0	20	0	NA	0	NA	0
 alcoholdep	1589	0	0	0	NA	0	NA	0
 anemia	2170	15	0	0	NA	0	NA	0
-atrialfib	6341	0	2373170	0	NA	0	NA	5165
 cancerskin	1343	0	0	0	NA	0	NA	0
 childmal	693	0	250640	0	NA	0	NA	7515
 cholesterol	10832	0	0	0	NA	0	NA	7777
@@ -131,7 +127,6 @@ coronaryartdis	2484	0	58	0	NA	0	NA	0
 covid	9853	8	944	4613	NA	0	NA	0
 crp	1196	0	1097795	0	NA	0	NA	5467
 deathofrelative	2234	0	0	0	NA	0	NA	0
-diabloodpres	388	0	10778072	0	NA	0	NA	0
 dietvariation	1625	0	0	0	NA	0	NA	0
 disability	1619	0	0	0	NA	0	NA	0
 divorce	2228	0	0	0	NA	0	NA	0
@@ -180,7 +175,6 @@ pelvicorganprol	3272	0	0	0	NA	0	NA	0
 peripheralartdis	1393	0	94	0	NA	0	NA	4114
 physactivity	2373	0	0	0	NA	0	NA	5336
 pregnantermin	1347	0	0	0	NA	0	NA	0
-pulsepress	388	0	10795049	0	NA	0	NA	0
 rheuma	2375	0	0	0	NA	4134	NA	0
 riskbehavior	1936	0	0	0	NA	0	NA	0
 sedentary	0	0	0	0	NA	0	NA	5336

@@ -9,13 +9,7 @@ all <- dir_ls("/cfs/klemming/projects/supr/ki-pgi-storage/Data/sumstats-repo/wor
 all2 <- dir_ls("/cfs/klemming/projects/supr/ki-pgi-storage/Data/sumstats-repo/workflow/wave2")
 
 
-known_err <- c("cancerpanc", "pulsepress", "systolpress", "scz2011", "mdd2013", "diabloodpres", "parkinson2019", 
-               "atrialfib")
 
-duplications <- c("t1d", "t2d", "alzheimer", "als", "anorexia_nervosa_PGC2","autism", "cancerbreast", "smokingces", "smokingever")
-
-
-parent_dir <- all[1]
 
 parse_removed_rows <- function(parent_dir) {
   all_df <- fs::dir_ls(fs::path(parent_dir, "pipeline_info/"), glob = "*removed*") |> 
