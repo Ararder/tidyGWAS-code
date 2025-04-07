@@ -3,6 +3,7 @@ library(fs)
 library(tidyverse)
 library(lubridate)
 library(patchwork)
+source("R/functions.R")
 
 all <- dir_ls("/cfs/klemming/projects/supr/ki-pgi-storage/Data/sumstats-repo/workflow/wave1")
 all2 <- dir_ls("/cfs/klemming/projects/supr/ki-pgi-storage/Data/sumstats-repo/workflow/wave2")
@@ -87,7 +88,7 @@ write_rds(data, "data/benchmark.rds")
 
 
 # Code to get time and memory usage from slurm jobs
-meta_bench <- make_df("meta-analysis") |> mutate(method = "tidyGWAS")
+meta_bench <- make_df("tidy-meta") |> mutate(method = "tidyGWAS")
 meta_bench_metal <- make_df("metal-meta") |> mutate(method = "metal")
 all <- bind_rows(meta_bench, meta_bench_metal)
 write_rds(all, "data/meta_benchmark.rds")
