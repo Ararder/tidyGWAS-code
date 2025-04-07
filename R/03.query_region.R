@@ -1,4 +1,6 @@
 library(arrow)
+library(tidyverse)
+
 
 s <- arrow::schema(
   POS_38 = int32(),
@@ -20,14 +22,18 @@ s <- arrow::schema(
   CHR = string(),
   dataset_name = string()
 )
-dset1  <-  arrow::open_dataset("/cfs/klemming/projects/supr/ki-pgi-storage/Data/sumstats/arrow_wave1", schema = s)
-dset2  <-  arrow::open_dataset("/cfs/klemming/projects/supr/ki-pgi-storage/Data/sumstats/arrow_wave2", schema = s)
+dset1  <-  arrow::open_dataset("/cfs/klemming/projects/supr/ki-pgi-storage/Data/sumstats-repo/workflow//arrow_wave1", schema = s)
+dset2  <-  arrow::open_dataset("/cfs/klemming/projects/supr/ki-pgi-storage/Data/sumstats-repo/workflow/arrow_wave2", schema = s)
 
 
 
 merged_dset <- arrow::open_dataset(list(dset1, dset2)) 
 
-all_sig <- merged_dset |> 
+
+
+results <- microbenchmark::microbenchmark(
+  {
+    all_sig <- merged_dset |> 
     dplyr::filter(P < 5e-08) |> 
     dplyr::filter(CHR == "7") |> 
     dplyr::filter(POS_38 >= 1788081 & POS_38 <= 2289862) |> 
@@ -35,3 +41,11 @@ all_sig <- merged_dset |>
     dplyr::collect() |> 
     dplyr::group_by(dataset_name) |> 
     dplyr::slice_min(P)
+  },
+  times = 10L,
+  unit =  "seconds"
+)
+
+
+
+# 

@@ -1,16 +1,11 @@
 library(downstreamGWAS)
 library(fs)
-library(dplyr)
-library(purrr)
-library(tidyr)
-library(stringr)
-library(ggplot2)
-library(forcats)
+library(tidyverse)
 library(lubridate)
 library(patchwork)
 
-all <- dir_ls("/cfs/klemming/projects/supr/ki-pgi-storage/Data/sumstats/wave1")
-all2 <- dir_ls("/cfs/klemming/projects/supr/ki-pgi-storage/Data/sumstats/wave2")
+all <- dir_ls("/cfs/klemming/projects/supr/ki-pgi-storage/Data/sumstats-repo/workflow/wave1")
+all2 <- dir_ls("/cfs/klemming/projects/supr/ki-pgi-storage/Data/sumstats-repo/workflow/wave2")
 
 
 known_err <- c("cancerpanc", "pulsepress", "systolpress", "scz2011", "mdd2013", "diabloodpres", "parkinson2019", 
@@ -63,27 +58,36 @@ y <- map(all2, parse_removed_rows) |>
 
 
 merged <- bind_rows(x,y)
-readr::write_tsv(merged, "workflow/row_removs.tsv")
+readr::write_tsv(merged, "data/row_removs.tsv")
 
 
 
-# suic thoughts --------------------------------------------------------------
-# MY guess is they inner_joined on refsnp table: get two matches then?
-# tbl_kept <- arrow::read_parquet('/work/users/a/r/arvhar/tidyGWAS_stuff/output2/suicidal_thoughts/raw/raw.parquet')
-# tbl <- arrow::read_parquet('/work/users/a/r/arvhar/tidyGWAS_stuff/output2/suicidal_thoughts/pipeline_info/removed_duplicates.parquet')
-
-# tbl_kept |> 
-#   filter(CHR == 3 & POS == 4234973 & EffectAllele == "CT" & OtherAllele == "C")
+####
 
 
-
-
-# figures -----------------------------------------------------------------
-# tbl <- arrow::read_parquet('/work/users/a/r/arvhar/tidyGWAS_stuff/output2/type_1_diabetes/pipeline_info/removed_validate_chr_pos_path.parquet')
+names <- c("tidy-small", "tidy-big", "mss-small", "mss-big")
+data <- map(names, make_df) |> 
+    list_rbind() |> 
+    separate(type, into = c("method", "sumstat"), sep = "-")
+d <- data
 
 
 
+data <- 
+    d |> 
+    mutate(sumstat = if_else(sumstat == "small", "7.5 million rows", "40 million rows")) |> 
+    mutate(method = if_else(method == "tidy", "tidyGWAS", "MungeSumstats"))
 
-# remove some outliers
-# -------------------------------------------------------------------------
-# httpgd::hgd()
+# save for posterity
+write_rds(data, "data/benchmark.rds")
+
+
+
+#
+
+
+# Code to get time and memory usage from slurm jobs
+meta_bench <- make_df("meta-analysis") |> mutate(method = "tidyGWAS")
+meta_bench_metal <- make_df("metal-meta") |> mutate(method = "metal")
+all <- bind_rows(meta_bench, meta_bench_metal)
+write_rds(all, "data/meta_benchmark.rds")

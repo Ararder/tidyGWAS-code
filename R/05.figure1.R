@@ -103,67 +103,6 @@ fig1
 
 
 
-get_ids <- function(x) {
-    glob <- paste0("*", x, "*")
-    dir_ls("slurm", glob = glob) |> 
-    path_file() |> 
-    str_extract("[0-9]{1,12}_[0-9]{1,2}")
-
-}
-
-make_df <- function(y) {
-
-    ids <- get_ids(y)
-
-    x <- map(ids, \(x) system(paste0("seff ", x), intern = TRUE))
-
-    purrr::map(x, \(x) {
-        mem <-  x[[11]] |> 
-            str_remove("Memory Utilized: ") |> 
-            str_remove(" GB")  |> 
-            as.numeric()
-
-        time <-  
-            x[[10]] |> 
-            str_remove("Job Wall-clock time: ") |> 
-            hms()
-        array_job <- x[[2]] |> 
-            str_remove("Array Job ID: ")
-        
-        dplyr::tibble(
-            type = y,
-            mem = mem,
-            time = time,
-            array_job = array_job
-        )
-    }) |> 
-    purrr::list_rbind()
-}   
-
-
-
-names <- c("tidy-small", "tidy-big", "mss-small", "mss-big")
-data <- map(names, make_df) |> 
-    list_rbind() |> 
-    separate(type, into = c("method", "sumstat"), sep = "-")
-d <- data
-
-
-
-data <- 
-    d |> 
-    mutate(sumstat = if_else(sumstat == "small", "7.5 million rows", "40 million rows")) |> 
-    mutate(method = if_else(method == "tidy", "tidyGWAS", "MungeSumstats"))
-
-# save for posterity
-write_rds(data, "data/benchmark.rds")
-data <- read_rds("data/benchmark.tsv")
-
-data |> 
-    mutate(time = parse_date_time(time))
-
-
-
 
 
 labs <- 
@@ -248,12 +187,6 @@ text_ref
 
 
 # Look at meta-analysis benchmark
-
-# Code to get time and memory usage from slurm jobs
-meta_bench <- make_df("meta-analysis") |> mutate(method = "tidyGWAS")
-meta_bench_metal <- make_df("metal-meta") |> mutate(method = "metal")
-all <- bind_rows(meta_bench, meta_bench_metal)
-write_rds(all, "data/meta_benchmark.rds")
 
 
 # httpgd::hgd()
